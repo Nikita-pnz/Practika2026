@@ -27,11 +27,13 @@ int proverka(int n1){
             printf("Введите новое число элементов: ");
             if (scanf("%d", &a) != 1) {
                 printf("Введено некорректное значение\n");
-                while (getchar() != '\n');
+                int c;
+                while ((c=getchar()) != '\n'&&c!=EOF);
                 continue;
         }
         n1 = a;
-    }else{
+    }
+    else{
         printf("\n");
         break;
     }
@@ -46,16 +48,23 @@ int main() {
 
     int n;
 
-    printf("Введите количество элементов в массиве(минимум 2): ");
+    printf("Введите количество элементов в массиве: ");
     if (scanf("%d", &n)!=1){
         printf("Введены некорректные значения\n");
+        int a;
+        while ((a=getchar()) != '\n'&&a!=EOF);
         system("pause");
         return 1;
     };
 
     n=proverka(n);
 
-    int arr[n];
+    int *arr = malloc(n * sizeof(int));
+    if (!arr){
+        printf("Ошибка выделения памяти под массив");
+        system("pause");
+        return 1;
+    }
 
     printf("Введите %d элементов массива по очереди:\n", n);
     for (int i = 0; i < n; i++) {
@@ -74,7 +83,7 @@ int main() {
         printf("%d ", arr[i]);
     }
     printf("\n");
-
+    free(arr);
     system("pause");
     return 0;
 }

@@ -7,7 +7,7 @@
 int global_array_size = 0;
 
 int* generating_array() {
-    int pos1, pos2,c,count;
+    int pos1, pos2, c, count;
     while (1) {
         printf("Введите начальную границу генерации:\n");
         if (scanf("%d", &pos1) != 1) {
@@ -195,26 +195,25 @@ int main() {
     int* arr = menu();
 
     if (arr == NULL) {
-        printf("[!] ОШИБКА: Массив не был создан или загружен. Завершение.\n");
+        printf("Массив не был создан или загружен\n");
         system("pause");
         return 1;
     }
 
     int n = global_array_size;
 
-    printf("Исходные данные: ");
-    for (int i = 0; i < n && i < 10; i++) printf("%d ", arr[i]);
-    printf("\n\n");
-
     printf("Выполняется сортировка вставками... ");
+
+    DWORD nachalo = GetTickCount();
     sortirovka_vstavkami(arr, n);
-    printf("Готово!\n");
+    DWORD konec = GetTickCount();
+    printf("Массив отсортирован за %lu миллисекунд или %.5f секунд\n", (konec - nachalo), (konec - nachalo) / 1000.0);
 
     if (save_to_file("output.txt", arr, n)) {
-        printf("-> Результат успешно сохранен в файл \"output.txt\"!\n");
+        printf("Результат сохранен в файл \"output.txt\"!\n");
     }
     else {
-        printf("[!] ОШИБКА: Не удалось создать файл \"output.txt\".\n");
+        printf("Не удалось создать файл \"output.txt\".\n");
     }
 
     printf("\n==================================================\n");
